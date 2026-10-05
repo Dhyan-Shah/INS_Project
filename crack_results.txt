@@ -1,0 +1,7 @@
+Success = recovered plaintext matches original on >= 95% of letters (10 trials each)
+
+Cipher                 100 letters       200 letters       400 letters   avg time
+Caesar                      10/10            10/10            10/10   0.0s
+Monoalphabetic               4/10             6/10            10/10   3.1s
+Vigenere                     9/10            10/10            10/10   0.1s
+Rail Fence                  10/10            10/10            10/10   0.0s
