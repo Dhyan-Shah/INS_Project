@@ -30,7 +30,7 @@ def get_scorer():
     return load_scorer()
 
 
-def show_crack(cipher: str, text: str):
+def show_crack(cipher: str, text: str, key_prefix: str):
     """Run the matching cracker and display key + plaintext."""
     if cipher not in CRACKERS:
         st.info(f"Automatic cracking is not supported for {cipher}. "
@@ -41,7 +41,7 @@ def show_crack(cipher: str, text: str):
     st.subheader("Auto-decrypt result")
     st.write(f"**Recovered key:** `{result['key']}`")
     st.text_area("Recovered plaintext (spaces are lost - only letters are kept)",
-                 result["plaintext"], height=140)
+                 result["plaintext"], height=140, key=f"{key_prefix}_plaintext")
     if len(clean(text)) < 150:
         st.caption("Short ciphertext - the recovered text may contain errors.")
 
@@ -67,7 +67,7 @@ with tab_predict:
             st.bar_chart(result)
             if len(letters) < 100:
                 st.info("Short text - accuracy drops below ~100 letters.")
-            show_crack(result.index[0], letters)
+            show_crack(result.index[0], letters, "identify")
 
 with tab_demo:
     st.write("Encrypt sample English text with a random cipher, then test the model on it.")
@@ -88,4 +88,4 @@ with tab_demo:
         st.write(f"True cipher: **{true_label}** | Model prediction: **{pred}**")
         if len(clean(ct)) < 100:
             st.info("Short samples are harder - try longer plaintext.")
-        show_crack(pred, ct)
+        show_crack(pred, ct, "demo")
